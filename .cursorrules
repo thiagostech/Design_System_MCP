@@ -18,8 +18,7 @@ NOMES E IDENTIDADE DE COMPONENTES (REGRA CRÍTICA)
 =================================================
 
 - O nome do componente deve ser extraído diretamente do MCP.
-- Quando o MCP fornecer um type ou interface no formato `<ComponentName>Props`,
-  o nome do componente é obrigatoriamente `<ComponentName>`.
+- Quando o MCP fornecer  atraves do get_metadata:figma o RESPONSE vai conter um "name=<ComponentName>" então use esse <ComponentName> como nome do nosso component no flutter
 - O nome definido no MCP determina obrigatoriamente:
   - o nome do componente no código
   - o nome do widget Flutter
