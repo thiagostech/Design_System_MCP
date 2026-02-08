@@ -57,6 +57,16 @@ COMPONENTES EXISTENTES NO DESIGN SYSTEM
 PROPS E API PÚBLICA
 =================================================
 
+- O get_design_context (Figma) fornece as variações/propriedades em forma de type (TypeScript), por exemplo:
+  type PageHeaderProfileProps = {
+    className?: string;
+    headline?: string;
+    showDivider?: boolean;
+    showSupportingText?: boolean;
+    supportingText?: string;
+  };
+- O MCP pode mostrar vários types no response. Para o Flutter deve ser usada exclusivamente aquele cujo nome é igual a <ComponentName>Props, em que ComponentName é o nome do componente derivado do get_metadata (ex.: name="Page Header Profile" → PageHeaderProfile → usar o type PageHeaderProfileProps). Ignorar outros types que não correspondam a esse nome.
+- As propriedades desse type (<ComponentName>Props) são os parâmetros que o widget Flutter deve ter e devem ser expostos como knobs no Widgetbook (um knob por prop, com tipo e valor inicial compatíveis).
 - As props definidas no MCP representam a API pública do componente.
 - Não criar novas props.
 - Não remover props.
