@@ -44,66 +44,6 @@ import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
-    name: 'tokens',
-    children: [
-      _widgetbook.WidgetbookComponent(
-        name: 'Color',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Color',
-            builder:
-                _design_system_mcp_test_example_widgetbook_color_tokens_stories
-                    .colorTokensUseCase,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'Radius',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Radius',
-            builder:
-                _design_system_mcp_test_example_widgetbook_radius_tokens_stories
-                    .radiusTokensUseCase,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'Size',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Size',
-            builder:
-                _design_system_mcp_test_example_widgetbook_size_tokens_stories
-                    .sizeTokensUseCase,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'Spacing',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Spacing',
-            builder:
-                _design_system_mcp_test_example_widgetbook_spacing_tokens_stories
-                    .spacingTokensUseCase,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'Typography',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Typography',
-            builder:
-                _design_system_mcp_test_example_widgetbook_typography_tokens_stories
-                    .typographyTokensUseCase,
-          ),
-        ],
-      ),
-    ],
-  ),
-  _widgetbook.WidgetbookFolder(
     name: 'components',
     children: [
       _widgetbook.WidgetbookComponent(
@@ -213,6 +153,66 @@ final directories = <_widgetbook.WidgetbookNode>[
             builder:
                 _design_system_mcp_test_example_widgetbook_top_bar_stories
                     .topBarUseCase,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'tokens',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'ColorTokens',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Color',
+            builder:
+                _design_system_mcp_test_example_widgetbook_color_tokens_stories
+                    .colorTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RadiusTokens',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Radius',
+            builder:
+                _design_system_mcp_test_example_widgetbook_radius_tokens_stories
+                    .radiusTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'SizeTokens',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Size',
+            builder:
+                _design_system_mcp_test_example_widgetbook_size_tokens_stories
+                    .sizeTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'SpacingTokens',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Spacing',
+            builder:
+                _design_system_mcp_test_example_widgetbook_spacing_tokens_stories
+                    .spacingTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'TypographyTokens',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Typography',
+            builder:
+                _design_system_mcp_test_example_widgetbook_typography_tokens_stories
+                    .typographyTokensUseCase,
           ),
         ],
       ),
