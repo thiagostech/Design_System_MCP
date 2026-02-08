@@ -17,18 +17,22 @@ FONTE DA VERDADE (REGRA CRÍTICA)
 NOMES E IDENTIDADE DE COMPONENTES (REGRA CRÍTICA)
 =================================================
 
-- O nome do componente deve ser extraído diretamente do MCP.
-- Quando o MCP fornecer  atraves do get_metadata:figma o RESPONSE vai conter um "name=<ComponentName>" então use esse <ComponentName> como nome do nosso component no flutter
-- O nome definido no MCP determina obrigatoriamente:
-  - o nome do componente no código
-  - o nome do widget Flutter
-  - o nome da página no Widgetbook
+- O nome do componente Flutter deve ser EXATAMENTE o derivado do get_metadata do Figma. Nenhum outro nome é permitido. Esta regra é crítica.
+- O get_metadata (Figma) retorna um response em formato XML contendo o atributo name no symbol, por exemplo:
+  symbol id="43:151" name="Page Header Profile" x="80" y="80" width="376"
+- O valor do atributo name (ex.: "Page Header Profile") é a ÚNICA fonte do nome. A partir dele, o nome do componente no Flutter deve ser obtido assim:
+  - Remover espaços.
+  - Capitalizar a primeira letra de cada palavra (PascalCase).
+  - Resultado obrigatório: PageHeaderProfile (e nunca ProfileCard, PageHeader ou qualquer outro nome).
+- Resumo: name="Page Header Profile" no MCP → widget Flutter obrigatoriamente PageHeaderProfile; name="X Y Z" → Xyz (PascalCase sem espaços).
+- O nome assim obtido determina obrigatoriamente:
+  - o nome do arquivo do componente (ex.: page_header_profile.dart)
+  - o nome da classe do widget Flutter (ex.: PageHeaderProfile)
+  - o nome da página/use case no Widgetbook (ex.: PageHeaderProfile)
 - Prefixos só podem ser usados se explicitamente definidos no MCP.
 - Não adicionar, remover ou adaptar prefixos.
 - Nomes, props, estados, tokens e prefixos são case-sensitive.
-- A única transformação permitida é:
-  kebab-case / Title Case → camelCase / PascalCase
-- Nenhum outro tipo de renomeação é permitido.
+- Nenhum outro tipo de renomeação ou nome alternativo é permitido.
 - Qualquer divergência é erro bloqueante.
 
 =================================================
