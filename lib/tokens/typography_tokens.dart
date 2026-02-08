@@ -4,9 +4,9 @@ abstract final class TypographyTokens {
   static const String fontPrimary = 'Barlow';
   static const String fontSecondary = 'Poppins';
 
-  // Display small - 32 / 40, SemiBold
-  static const double displaySmallSize = 32;
-  static const double displaySmallLineHeight = 40;
+  // Display small - 36 / 44, SemiBold
+  static const double displaySmallSize = 36;
+  static const double displaySmallLineHeight = 44;
   static const FontWeight displaySmallWeight = FontWeight.w600;
 
   // Headline large - 32 / 40, SemiBold
@@ -49,7 +49,7 @@ abstract final class TypographyTokens {
   static const double labelLargeLineHeight = 20;
   static const FontWeight labelLargeWeight = FontWeight.w500;
 
-  /// Display small: Primary SemiBold 32/40
+  /// Display small: Primary SemiBold 36/44
   static TextStyle get displaySmall => TextStyle(
         fontFamily: fontPrimary,
         fontSize: displaySmallSize,

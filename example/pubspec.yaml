@@ -12,7 +12,8 @@ dependencies:
   design_system_mcp_test:
     path: ../
   url_launcher: ^6.2.0
-  widgetbook: ^3.19.0
+  widgetbook:
+    path: packages/widgetbook
   widgetbook_annotation: ^3.8.0
 
 dev_dependencies:

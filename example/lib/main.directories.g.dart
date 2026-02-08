@@ -12,6 +12,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:design_system_mcp_test_example/widgetbook/avatar.stories.dart'
     as _design_system_mcp_test_example_widgetbook_avatar_stories;
+import 'package:design_system_mcp_test_example/widgetbook/color_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_color_tokens_stories;
+import 'package:design_system_mcp_test_example/widgetbook/radius_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_radius_tokens_stories;
+import 'package:design_system_mcp_test_example/widgetbook/size_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_size_tokens_stories;
+import 'package:design_system_mcp_test_example/widgetbook/spacing_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_spacing_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/typography_tokens.stories.dart'
     as _design_system_mcp_test_example_widgetbook_typography_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/divider.stories.dart'
@@ -38,6 +46,50 @@ final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
     name: 'tokens',
     children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'Color',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Color',
+            builder:
+                _design_system_mcp_test_example_widgetbook_color_tokens_stories
+                    .colorTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'Radius',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Radius',
+            builder:
+                _design_system_mcp_test_example_widgetbook_radius_tokens_stories
+                    .radiusTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'Size',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Size',
+            builder:
+                _design_system_mcp_test_example_widgetbook_size_tokens_stories
+                    .sizeTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'Spacing',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Spacing',
+            builder:
+                _design_system_mcp_test_example_widgetbook_spacing_tokens_stories
+                    .spacingTokensUseCase,
+          ),
+        ],
+      ),
       _widgetbook.WidgetbookComponent(
         name: 'Typography',
         useCases: [

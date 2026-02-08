@@ -623,10 +623,9 @@ packages:
   widgetbook:
     dependency: "direct main"
     description:
-      name: widgetbook
-      sha256: "877a843650117d214d8874b662b3a04bd6988aad33208d26dbe31edbc7d68e78"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/widgetbook"
+      relative: true
+    source: path
     version: "3.19.0"
   widgetbook_annotation:
     dependency: "direct main"

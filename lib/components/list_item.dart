@@ -29,6 +29,7 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final content = Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: SpacingTokens.gapLarge,
@@ -40,7 +41,7 @@ class ListItem extends StatelessWidget {
           if (leadingIcon != null) ...[
             Icon(
               leadingIcon,
-              color: ColorTokens.onSurface,
+              color: colorScheme.onSurface,
               size: SizeTokens.iconSizeSmall,
             ),
             const SizedBox(width: SpacingTokens.gapMedium),
@@ -53,14 +54,14 @@ class ListItem extends StatelessWidget {
                 Text(
                   title,
                   style: TypographyTokens.bodyLarge.copyWith(
-                    color: ColorTokens.onSurface,
+                    color: colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: SpacingTokens.gapExtraSmall),
                 Text(
                   supportingText,
                   style: TypographyTokens.bodyMedium.copyWith(
-                    color: ColorTokens.onSurfaceVariant,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -72,7 +73,7 @@ class ListItem extends StatelessWidget {
             const SizedBox(width: SpacingTokens.gapSmall),
             Icon(
               trailingIcon,
-              color: ColorTokens.onSurface,
+              color: colorScheme.onSurface,
               size: SizeTokens.iconSizeSmall,
             ),
           ],

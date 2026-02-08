@@ -32,8 +32,9 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return ColoredBox(
-      color: ColorTokens.surface,
+      color: colorScheme.surface,
       child: SafeArea(
         bottom: false,
         child: Padding(
@@ -41,14 +42,16 @@ class TopBar extends StatelessWidget {
             horizontal: SpacingTokens.gapSmall,
             vertical: SpacingTokens.gapSmall,
           ),
-          child: variant == TopBarVariant.compact ? _buildCompact() : _buildStacked(),
+          child: variant == TopBarVariant.compact
+              ? _buildCompact(colorScheme)
+              : _buildStacked(colorScheme),
         ),
       ),
     );
   }
 
   /// Compact (Figma 29-2908): leading icon, título e supporting text na mesma coluna, trailing icon. Uma linha de ícones com texto empilhado ao centro.
-  Widget _buildCompact() {
+  Widget _buildCompact(ColorScheme colorScheme) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -67,7 +70,7 @@ class TopBar extends StatelessWidget {
               Text(
                 title,
                 style: TypographyTokens.titleLarge.copyWith(
-                  color: ColorTokens.onSurface,
+                  color: colorScheme.onSurface,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -77,7 +80,7 @@ class TopBar extends StatelessWidget {
                 Text(
                   supportingText!,
                   style: TypographyTokens.bodyMedium.copyWith(
-                    color: ColorTokens.onSurfaceVariant,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -97,10 +100,10 @@ class TopBar extends StatelessWidget {
   }
 
   /// Medium/Large: ações (ícones) em cima, título em baixo.
-  Widget _buildStacked() {
+  Widget _buildStacked(ColorScheme colorScheme) {
     final textStyle = variant == TopBarVariant.large
-        ? TypographyTokens.displaySmall.copyWith(color: ColorTokens.onSurface)
-        : TypographyTokens.titleLarge.copyWith(color: ColorTokens.onSurface);
+        ? TypographyTokens.displaySmall.copyWith(color: colorScheme.onSurface)
+        : TypographyTokens.titleLarge.copyWith(color: colorScheme.onSurface);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -133,7 +136,7 @@ class TopBar extends StatelessWidget {
                 Text(
                   supportingText!,
                   style: TypographyTokens.bodyMedium.copyWith(
-                    color: ColorTokens.onSurfaceVariant,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
