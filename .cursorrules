@@ -46,21 +46,24 @@ NOMES E IDENTIDADE DE COMPONENTES (REGRA CRÍTICA)
 - Qualquer divergência é erro bloqueante.
 
 =================================================
-COMPONENTES EXISTENTES NO DESIGN SYSTEM
+COMPONENTES EXISTENTES NO DESIGN SYSTEM (PRIORIDADE MÁXIMA)
 =================================================
 
-- Se um componente já existir no Design System e estiver definido no MCP,
-  ele deve ser reutilizado obrigatoriamente.
-- É proibido substituir um componente do DS por:
-  - widgets nativos do Flutter
+- O uso dos componentes do Design System é PRIORIDADE MÁXIMA. Nada pode superar esta regra.
+- Se um componente já existir no Design System (lib/components/), ele DEVE ser reutilizado obrigatoriamente.
+- É PROIBIDO substituir um componente do DS por:
+  - widgets nativos do Flutter (Material, Cupertino, etc.)
   - widgets de bibliotecas externas
   - implementações manuais equivalentes
 - Componentes prontos (ex: widgets do Flutter) podem ser usados apenas
-  como BASE DE IMPLEMENTAÇÃO INTERNA,
+  como BASE DE IMPLEMENTAÇÃO INTERNA de um componente do DS,
   nunca como substituição de um componente oficial do DS.
-- Exemplo proibido:
-  - Usar `IconButton` do Flutter quando existe `IconButtonStandard`
-    definido no MCP/Figma.
+- Ao importar: SEMPRE importar o componente do DS. NUNCA usar widgets do Flutter que conflitem com componentes do DS.
+- Exemplos proibidos (usar SEMPRE o componente do DS):
+  - Usar `IconButton` do Flutter → usar `IconButtonStandard`
+  - Usar `Divider` do material.dart → usar `Divider` de components/divider.dart
+  - Usar `ElevatedButton`/`OutlinedButton` do Flutter → usar `ButtonFilled`/`ButtonOutlined`
+- Em caso de conflito de nome (ex.: Divider existe no Material e no DS), usar `hide` no import do material para o widget do Flutter e importar explicitamente o do DS.
 - Sempre priorizar o componente do DS definido no MCP.
 
 =================================================
@@ -156,6 +159,7 @@ LAYOUT, HIERARQUIA, ESPAÇAMENTOS E DIREÇÃO (REGRA CRÍTICA)
 - Hierarquia, espaçamentos e direção do layout vêm exclusivamente do MCP: use get_design_context e get_screenshot como fonte da verdade antes de implementar.
 - Respeite exatamente a hierarquia de camadas retornada pelo get_design_context e a composição visual do get_screenshot.
 - Respeite exatamente as constraints e a direção (eixo, ordem dos filhos, aninhamento) definidas no Figma via MCP.
+- A ORDEM DOS COMPONENTES é obrigatória: siga exatamente a ordem visual do Figma (de cima para baixo, da esquerda para a direita). Não trocar a posição de nenhum elemento — o que aparece antes no design deve aparecer antes no código.
 - Espaçamentos (gaps, padding, margin) devem vir dos tokens e da estrutura indicada no get_design_context / get_screenshot; não inventar nem aproximar valores.
 - Não adaptar layout para diferentes tamanhos de tela.
 - Não criar comportamento responsivo.
