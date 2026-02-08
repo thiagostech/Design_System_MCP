@@ -17,40 +17,45 @@ class IconButtonOutlined extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Material(
       color: Colors.transparent,
       child: IconButton(
         onPressed: enabled ? onPressed : null,
-        icon: Icon(icon, size: SizeTokens.iconSizeSmall),
+        icon: Icon(
+          icon,
+          size: SizeTokens.iconSizeSmall,
+          color: colorScheme.onSurfaceVariant,
+        ),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.disabled)) {
-              return ColorTokens.onSurfaceOpacity40;
+              return colorScheme.onSurface.withOpacity(0.12);
             }
             return Colors.transparent;
           }),
           foregroundColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.disabled)) {
-              return ColorTokens.onSurfaceVariant;
+              return colorScheme.onSurfaceVariant;
             }
-            return ColorTokens.onSurfaceVariant;
+            return colorScheme.onSurfaceVariant;
           }),
           side: MaterialStateProperty.resolveWith<BorderSide>((states) {
             if (states.contains(MaterialState.disabled)) {
-              return const BorderSide(
-                color: ColorTokens.onSurfaceOpacity40,
+              return BorderSide(
+                color: colorScheme.onSurface.withOpacity(0.12),
                 width: 1,
               );
             }
-            return const BorderSide(
-              color: ColorTokens.outline,
+            return BorderSide(
+              color: colorScheme.outline,
               width: 1,
             );
           }),
           overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.hovered) ||
                 states.contains(MaterialState.pressed)) {
-              return ColorTokens.onSurfaceOpacity10;
+              return colorScheme.onSurface.withOpacity(0.08);
             }
             return Colors.transparent;
           }),

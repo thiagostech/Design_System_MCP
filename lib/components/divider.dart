@@ -33,13 +33,16 @@ class Divider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return direction == Axis.horizontal ? _buildHorizontal() : _buildVertical();
+    final color = Theme.of(context).colorScheme.outlineVariant;
+    return direction == Axis.horizontal
+        ? _buildHorizontal(color)
+        : _buildVertical(color);
   }
 
-  Widget _buildHorizontal() {
+  Widget _buildHorizontal(Color color) {
     final line = Container(
       height: _lineSize,
-      color: ColorTokens.outlineVariant,
+      color: color,
     );
     switch (type) {
       case DividerType.full:
@@ -59,10 +62,10 @@ class Divider extends StatelessWidget {
     }
   }
 
-  Widget _buildVertical() {
+  Widget _buildVertical(Color color) {
     final line = Container(
       width: _lineSize,
-      color: ColorTokens.outlineVariant,
+      color: color,
     );
     switch (type) {
       case DividerType.full:

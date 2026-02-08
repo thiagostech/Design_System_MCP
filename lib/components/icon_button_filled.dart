@@ -17,28 +17,35 @@ class IconButtonFilled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Material(
       color: Colors.transparent,
       child: IconButton(
         onPressed: enabled ? onPressed : null,
-        icon: Icon(icon, size: SizeTokens.iconSizeSmall),
+        icon: Icon(
+          icon,
+          size: SizeTokens.iconSizeSmall,
+          color: enabled
+              ? colorScheme.onPrimary
+              : colorScheme.onSurfaceVariant,
+        ),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.disabled)) {
-              return ColorTokens.onSurfaceOpacity40;
+              return colorScheme.onSurface.withOpacity(0.12);
             }
-            return ColorTokens.primary;
+            return colorScheme.primary;
           }),
           foregroundColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.disabled)) {
-              return ColorTokens.onSurfaceVariant;
+              return colorScheme.onSurfaceVariant;
             }
-            return ColorTokens.onPrimary;
+            return colorScheme.onPrimary;
           }),
           overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.hovered) ||
                 states.contains(MaterialState.pressed)) {
-              return ColorTokens.onPrimaryOpacity10;
+              return colorScheme.onPrimary.withOpacity(0.08);
             }
             return Colors.transparent;
           }),

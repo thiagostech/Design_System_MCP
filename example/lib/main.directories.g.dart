@@ -14,14 +14,6 @@ import 'package:design_system_mcp_test_example/widgetbook/avatar.stories.dart'
     as _design_system_mcp_test_example_widgetbook_avatar_stories;
 import 'package:design_system_mcp_test_example/widgetbook/color_tokens.stories.dart'
     as _design_system_mcp_test_example_widgetbook_color_tokens_stories;
-import 'package:design_system_mcp_test_example/widgetbook/radius_tokens.stories.dart'
-    as _design_system_mcp_test_example_widgetbook_radius_tokens_stories;
-import 'package:design_system_mcp_test_example/widgetbook/size_tokens.stories.dart'
-    as _design_system_mcp_test_example_widgetbook_size_tokens_stories;
-import 'package:design_system_mcp_test_example/widgetbook/spacing_tokens.stories.dart'
-    as _design_system_mcp_test_example_widgetbook_spacing_tokens_stories;
-import 'package:design_system_mcp_test_example/widgetbook/typography_tokens.stories.dart'
-    as _design_system_mcp_test_example_widgetbook_typography_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/divider.stories.dart'
     as _design_system_mcp_test_example_widgetbook_divider_stories;
 import 'package:design_system_mcp_test_example/widgetbook/filled_button.stories.dart'
@@ -36,10 +28,18 @@ import 'package:design_system_mcp_test_example/widgetbook/list_item.stories.dart
     as _design_system_mcp_test_example_widgetbook_list_item_stories;
 import 'package:design_system_mcp_test_example/widgetbook/outlined_button.stories.dart'
     as _design_system_mcp_test_example_widgetbook_outlined_button_stories;
+import 'package:design_system_mcp_test_example/widgetbook/radius_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_radius_tokens_stories;
+import 'package:design_system_mcp_test_example/widgetbook/size_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_size_tokens_stories;
+import 'package:design_system_mcp_test_example/widgetbook/spacing_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_spacing_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/title_list.stories.dart'
     as _design_system_mcp_test_example_widgetbook_title_list_stories;
 import 'package:design_system_mcp_test_example/widgetbook/top_bar.stories.dart'
     as _design_system_mcp_test_example_widgetbook_top_bar_stories;
+import 'package:design_system_mcp_test_example/widgetbook/typography_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_typography_tokens_stories;
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[

@@ -15,6 +15,7 @@ abstract final class AppTheme {
           onSurface: ColorTokens.onSurface,
           onSurfaceVariant: ColorTokens.onSurfaceVariant,
           outline: ColorTokens.outline,
+          outlineVariant: ColorTokens.outlineVariant,
         ),
         textTheme: TextTheme(
           headlineLarge: TypographyTokens.headlineLarge,
@@ -39,6 +40,7 @@ abstract final class AppTheme {
           onSurface: ColorTokens.onSurfaceDark,
           onSurfaceVariant: ColorTokens.onSurfaceVariantDark,
           outline: ColorTokens.outlineDark,
+          outlineVariant: ColorTokens.outlineVariantDark,
         ),
         textTheme: TextTheme(
           headlineLarge: TypographyTokens.headlineLarge,

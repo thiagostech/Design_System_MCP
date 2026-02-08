@@ -15,6 +15,7 @@ class TitleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: SpacingTokens.gapLarge,
@@ -27,14 +28,14 @@ class TitleList extends StatelessWidget {
           Text(
             title,
             style: TypographyTokens.titleMedium.copyWith(
-              color: ColorTokens.onSurface,
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: SpacingTokens.gapExtraSmall),
           Text(
             supportingText,
             style: TypographyTokens.bodyMedium.copyWith(
-              color: ColorTokens.onSurfaceVariant,
+              color: colorScheme.onSurfaceVariant,
             ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

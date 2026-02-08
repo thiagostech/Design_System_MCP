@@ -18,6 +18,7 @@ class ButtonOutlined extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Material(
       color: Colors.transparent,
       child: OutlinedButton(
@@ -25,32 +26,32 @@ class ButtonOutlined extends StatelessWidget {
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.disabled)) {
-              return ColorTokens.onSurfaceOpacity40;
+              return colorScheme.onSurface.withOpacity(0.12);
             }
             return Colors.transparent;
           }),
           foregroundColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.disabled)) {
-              return ColorTokens.onSurfaceVariant;
+              return colorScheme.onSurfaceVariant;
             }
-            return ColorTokens.onSurface;
+            return colorScheme.onSurface;
           }),
           side: MaterialStateProperty.resolveWith<BorderSide>((states) {
             if (states.contains(MaterialState.disabled)) {
-              return const BorderSide(
-                color: ColorTokens.onSurfaceOpacity40,
+              return BorderSide(
+                color: colorScheme.onSurface.withOpacity(0.12),
                 width: 1,
               );
             }
-            return const BorderSide(
-              color: ColorTokens.outline,
+            return BorderSide(
+              color: colorScheme.outline,
               width: 1,
             );
           }),
           overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.hovered) ||
                 states.contains(MaterialState.pressed)) {
-              return ColorTokens.onSurfaceOpacity10;
+              return colorScheme.onSurface.withOpacity(0.08);
             }
             return Colors.transparent;
           }),
@@ -72,7 +73,9 @@ class ButtonOutlined extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TypographyTokens.labelLarge,
+          style: TypographyTokens.labelLarge.copyWith(
+            color: enabled ? colorScheme.onSurface : colorScheme.onSurfaceVariant,
+          ),
         ),
       ),
     );
