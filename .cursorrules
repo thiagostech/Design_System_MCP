@@ -1,219 +1,216 @@
-Você gera código Flutter a partir do Figma via MCP.
+REGRA PARA IDE DE IA — GERAÇÃO FLUTTER VIA MCP FIGMA
+==================================================
 
-=================================================
-REGRAS DO MCP (FONTE DA VERDADE)
-=================================================
+OBJETIVO
+--------
+Gerar código Flutter a partir do Figma utilizando MCP.
+Nenhuma decisão criativa, inferência ou adaptação é permitida.
 
-FONTE DA VERDADE (REGRA CRÍTICA)
+REGRA GLOBAL (BLOQUEANTE)
+------------------------
+- O MCP é a ÚNICA fonte da verdade.
+- Tudo o que não estiver explicitamente definido no MCP é PROIBIDO.
+- Em caso de ausência, ambiguidade ou conflito de informação → FALHAR IMEDIATAMENTE.
+- Não assumir, não inferir, não completar, não adaptar.
+- Não interpretar Figma, tokens ou componentes.
 
-- O MCP é a única fonte da verdade.
-- Não crie nada que não esta no figma (MCP) e nenhuma variação que não existe. REIPEITE O type do get_design_context
-- Tudo que vier do MCP deve ser usado exatamente como está.
-- Se houver qualquer dúvida, ambiguidade ou ausência de informação, a geração deve falhar.
-- Não assumir, não inferir, não escolher, não completar.
-- Não "interpretar" Figma, tokens ou componentes.
+==================================================
+FLUXO OBRIGATÓRIO MCP (BLOQUEANTE)
+==================================================
 
-=================================================
-FLUXO OBRIGATÓRIO DO MCP FIGMA (REGRA CRÍTICA)
-=================================================
+Ao implementar qualquer design do Figma, é OBRIGATÓRIO:
 
-- Ao implementar um design do Figma, você DEVE chamar obrigatoriamente:
-  1. get_design_context (nodeId do Figma) — para obter estrutura, tipos, props e código de referência.
-  2. get_screenshot (mesmo nodeId) — para obter o contexto visual e validar hierarquia, espaçamentos e direção.
-- Não implementar sem ter obtido e usado as respostas de ambos os calls.
-- A hierarquia, os espaçamentos e a direção do layout vêm exclusivamente do get_design_context e do get_screenshot; não inferir nem inventar.
+1. Chamar get_design_context (nodeId do Figma)
+2. Chamar get_screenshot (mesmo nodeId)
 
-=================================================
-NOMES E IDENTIDADE DE COMPONENTES (REGRA CRÍTICA)
-=================================================
+- Não gerar código sem ter usado ambos os responses.
+- Estrutura, hierarquia, espaçamentos e direção do layout vêm EXCLUSIVAMENTE desses dois calls.
+- Nunca inferir informações visuais ausentes.
 
-- O nome do componente Flutter deve ser EXATAMENTE o derivado do get_metadata do Figma. Nenhum outro nome é permitido. Esta regra é crítica.
-- O get_metadata (Figma) retorna um response em formato XML contendo o atributo name no symbol, por exemplo:
-  symbol id="43:151" name="Page Header Profile" x="80" y="80" width="376"
-- O valor do atributo name (ex.: "Page Header Profile") é a ÚNICA fonte do nome. A partir dele, o nome do componente no Flutter deve ser obtido assim:
-  - Remover espaços.
-  - Capitalizar a primeira letra de cada palavra (PascalCase).
-  - Resultado obrigatório: PageHeaderProfile (e nunca ProfileCard, PageHeader ou qualquer outro nome).
-- Resumo: name="Page Header Profile" no MCP → widget Flutter obrigatoriamente PageHeaderProfile; name="X Y Z" → Xyz (PascalCase sem espaços).
-- O nome assim obtido determina obrigatoriamente:
-  - o nome do arquivo do componente (ex.: page_header_profile.dart)
-  - o nome da classe do widget Flutter (ex.: PageHeaderProfile)
-  - o nome da página/use case no Widgetbook (ex.: PageHeaderProfile)
-- Prefixos só podem ser usados se explicitamente definidos no MCP.
-- Não adicionar, remover ou adaptar prefixos.
-- Nomes, props, estados, tokens e prefixos são case-sensitive.
-- Nenhum outro tipo de renomeação ou nome alternativo é permitido.
+==================================================
+NOMES E IDENTIDADE DE COMPONENTES (BLOQUEANTE)
+==================================================
+
+- O nome do componente Flutter deve ser derivado EXCLUSIVAMENTE do get_metadata do MCP.
+- O atributo `name` do symbol é a única fonte válida.
+
+Exemplo MCP:
+  symbol id="43:151" name="Page Header Profile"
+
+Regras de conversão:
+- Remover espaços
+- PascalCase
+- Resultado obrigatório: PageHeaderProfile
+
+Esse nome determina obrigatoriamente:
+- Nome do arquivo: page_header_profile.dart
+- Nome da classe Flutter: PageHeaderProfile
+- Nome da página no Widgetbook: PageHeaderProfile
+
+Regras adicionais:
+- Prefixos só podem existir se definidos explicitamente no MCP.
+- Nomes, props, tokens e estados são case-sensitive.
 - Qualquer divergência é erro bloqueante.
+- Nenhum renomeio alternativo é permitido.
 
-=================================================
-COMPONENTES EXISTENTES NO DESIGN SYSTEM (PRIORIDADE MÁXIMA)
-=================================================
+==================================================
+COMPONENTES DO DESIGN SYSTEM (PRIORIDADE MÁXIMA)
+==================================================
 
-- O uso dos componentes do Design System é PRIORIDADE MÁXIMA. Nada pode superar esta regra.
-- Se um componente já existir no Design System (lib/components/), ele DEVE ser reutilizado obrigatoriamente.
-- É PROIBIDO substituir um componente do DS por:
-  - widgets nativos do Flutter (Material, Cupertino, etc.)
-  - widgets de bibliotecas externas
-  - implementações manuais equivalentes
-- Componentes prontos (ex: widgets do Flutter) podem ser usados apenas
-  como BASE DE IMPLEMENTAÇÃO INTERNA de um componente do DS,
-  nunca como substituição de um componente oficial do DS.
-- Ao importar: SEMPRE importar o componente do DS. NUNCA usar widgets do Flutter que conflitem com componentes do DS.
-- Exemplos proibidos (usar SEMPRE o componente do DS):
-  - Usar `IconButton` do Flutter → usar `IconButtonStandard`
-  - Usar `Divider` do material.dart → usar `Divider` de components/divider.dart
-  - Usar `ElevatedButton`/`OutlinedButton` do Flutter → usar `ButtonFilled`/`ButtonOutlined`
-- Em caso de conflito de nome (ex.: Divider existe no Material e no DS), usar `hide` no import do material para o widget do Flutter e importar explicitamente o do DS.
-- Sempre priorizar o componente do DS definido no MCP.
+- Componentes existentes no Design System DEVEM ser reutilizados obrigatoriamente.
+- É PROIBIDO substituir componentes do DS por:
+  - Widgets nativos do Flutter
+  - Bibliotecas externas
+  - Implementações manuais equivalentes
 
-=================================================
+Regras:
+- Widgets nativos do Flutter só podem ser usados como base interna de um componente do DS.
+- Sempre importar o componente do DS.
+- Em caso de conflito de nome, usar `hide` no import do Flutter e importar explicitamente o do DS.
+
+==================================================
 PROPS E API PÚBLICA
-=================================================
+==================================================
 
-- O get_design_context (Figma) fornece as variações/propriedades em forma de type (TypeScript), por exemplo:
-  type PageHeaderProfileProps = {
-    className?: string;
-    headline?: string;
-    showDivider?: boolean;
-    showSupportingText?: boolean;
-    supportingText?: string;
-  };
-- O MCP pode mostrar vários types no response. Para o Flutter deve ser usada exclusivamente aquele cujo nome é igual a <ComponentName>Props, em que ComponentName é o nome do componente derivado do get_metadata (ex.: name="Page Header Profile" → PageHeaderProfile → usar o type PageHeaderProfileProps). Ignorar outros types que não correspondam a esse nome.
-- As propriedades desse type (<ComponentName>Props) são os parâmetros que o widget Flutter deve ter e devem ser expostos como knobs no Widgetbook (um knob por prop, com tipo e valor inicial compatíveis).
-- As props definidas no MCP representam a API pública do componente.
-- Não criar novas props.
-- Não remover props.
-- Não alterar tipos, valores possíveis ou comportamentos.
+- O get_design_context fornece types (TypeScript) das props.
+- Usar EXCLUSIVAMENTE o type cujo nome seja <ComponentName>Props.
+- Ignorar qualquer outro type.
+
+Regras:
+- O widget Flutter deve expor EXATAMENTE as props definidas nesse type.
+- Não adicionar, remover ou adaptar props.
+- Não adicionar callbacks, textos, flags ou parâmetros não definidos no MCP.
 - Valores default definidos no MCP devem ser respeitados.
+- Cada prop deve virar um knob no Widgetbook.
+- Não criar knobs extras.
 
-=================================================
+==================================================
 ESTADOS E VARIAÇÕES
-=================================================
+==================================================
 
-- Estados definidos no MCP representam exclusivamente variações visuais.
-- Estados não representam lógica de interação.
-- Não implementar lógica além do que é fornecido pelo MCP.
-- Não adicionar callbacks, handlers ou interações sem instrução explícita.
-- Estruturas condicionais só são permitidas se explicitamente definidas no MCP.
-- Não simplificar, unificar ou inferir estruturas entre estados.
+- Estados representam APENAS variações visuais.
+- Estados NÃO representam lógica de interação.
+- Não adicionar handlers, callbacks ou lógica não definida.
+- Estruturas condicionais só são permitidas se explicitamente descritas no MCP.
+- Não unificar, simplificar ou inferir estados.
 
-=================================================
-TELAS (DE-PARA FIGMA ↔ FLUTTER)
-=================================================
+==================================================
+TELAS (MAPEAMENTO FIGMA ↔ FLUTTER)
+==================================================
 
-- O mapeamento entre componentes do Figma e widgets Flutter deve ser 1:1.
-- Ao montar telas, usar exatamente os componentes definidos no MCP.
-- Não substituir um componente por outro similar.
-- Não “simular” componentes com layout manual.
-- Se um componente aparece no Figma, ele deve aparecer como o mesmo componente no código.
+- Mapeamento é 1:1 entre componentes do Figma e widgets Flutter.
+- Usar exatamente os componentes definidos no MCP.
+- Não simular componentes com layout manual.
 - Não duplicar implementações de componentes dentro de telas.
 
-=================================================
-TOKENS (REGRA CRÍTICA)
-=================================================
+==================================================
+TOKENS (BLOQUEANTE)
+==================================================
 
-- Utilize exclusivamente os tokens fornecidos pelo MCP.
+- Usar EXCLUSIVAMENTE os tokens fornecidos pelo MCP.
 - Tokens já vêm no formato Flutter e devem ser usados literalmente.
-- Não criar novos tokens.
-- Não substituir tokens.
-- Não modificar tokens.
-- Não usar valores fixos.
-- Valores numéricos de fallback devem ser ignorados.
-- Cores, espaçamentos, raios, tamanhos e tipografia
-  devem vir exclusivamente dos tokens MCP.
-- É proibido usar withOpacity, lerp ou conversões numéricas.
 
-=================================================
-MAPEAMENTO DE TOKENS (REGRA CRÍTICA)
-=================================================
+Proibições:
+- Criar novos tokens
+- Substituir tokens
+- Modificar tokens
+- Usar valores fixos
+- Usar fallback numérico
+- Usar withOpacity, lerp ou conversões numéricas
 
-- Tokens devem ser mapeados de forma literal entre MCP e Flutter.
-- Se o MCP usar `SpacingTokens/gapMedium`,
-  o código Flutter deve usar exatamente `SpacingTokens.gapMedium`.
-- É proibido substituir tokens por outros semanticamente “próximos”.
-- O nome do token define o token a ser usado.
-- Nunca inferir equivalência entre small / medium / large.
+==================================================
+MAPEAMENTO DE TOKENS (BLOQUEANTE)
+==================================================
 
-=================================================
-TIPOGRAFIA (REGRA CRÍTICA)
-=================================================
+- O nome do token define exatamente qual token usar.
+- Não substituir tokens por equivalentes semânticos.
+- Exemplo:
+  MCP: SpacingTokens/gapMedium
+  Flutter: SpacingTokens.gapMedium
 
-- Fonte, tamanho, peso, line-height, letter-spacing e cor
-  devem vir exclusivamente de tokens tipográficos MCP.
-- Tokens tipográficos devem ser usados como objetos finais e completos.
-- Não criar TextStyle manualmente.
-- É proibido usar TextStyle.copyWith.
-- É proibido definir manualmente:
-  - fontWeight
-  - fontSize
-  - fontFamily
-  - height / lineHeight
-  - letterSpacing
-- Não utilizar Theme.of(context).textTheme.
-- Se o token tipográfico necessário não existir no MCP, a geração deve falhar.
+==================================================
+TIPOGRAFIA (BLOQUEANTE)
+==================================================
 
-=================================================
-LAYOUT, HIERARQUIA, ESPAÇAMENTOS E DIREÇÃO (REGRA CRÍTICA)
-=================================================
+- Tipografia deve vir exclusivamente de tokens MCP.
+- Tokens tipográficos são usados como objetos completos.
 
-- Hierarquia, espaçamentos e direção do layout vêm exclusivamente do MCP: use get_design_context e get_screenshot como fonte da verdade antes de implementar.
-- Respeite exatamente a hierarquia de camadas retornada pelo get_design_context e a composição visual do get_screenshot.
-- Respeite exatamente as constraints e a direção (eixo, ordem dos filhos, aninhamento) definidas no Figma via MCP.
-- A ORDEM DOS COMPONENTES é obrigatória: siga exatamente a ordem visual do Figma (de cima para baixo, da esquerda para a direita). Não trocar a posição de nenhum elemento — o que aparece antes no design deve aparecer antes no código.
-- Espaçamentos (gaps, padding, margin) devem vir dos tokens e da estrutura indicada no get_design_context / get_screenshot; não inventar nem aproximar valores.
-- Não adaptar layout para diferentes tamanhos de tela.
-- Não criar comportamento responsivo.
-- Não reordenar, agrupar ou desagrupar widgets em relação ao que o MCP descreve.
+Proibições:
+- Criar TextStyle manualmente
+- Usar TextStyle.copyWith
+- Definir manualmente fontSize, fontWeight, fontFamily, height ou letterSpacing
+- Usar Theme.of(context).textTheme
+
+- Se o token tipográfico necessário não existir → FALHAR.
+
+==================================================
+LAYOUT E HIERARQUIA (BLOQUEANTE)
+==================================================
+
+- A hierarquia do layout vem exclusivamente do MCP.
+- Respeitar exatamente:
+  - Ordem visual
+  - Direção dos eixos
+  - Aninhamento
+  - Constraints
+
+Regras:
+- Ordem dos widgets deve seguir o Figma (top-down / left-right).
 - Cada frame do Figma corresponde a um widget pai direto.
-- Use Stack ou Positioned apenas se explicitamente indicado no MCP.
-- Não substituir Stack por Row, Column ou Container.
-- Não utilizar Expanded, Flexible, Align, SizedBox
-  sem indicação explícita do MCP.
+- Padding e margens definidos no Figma DEVEM ser implementados.
+- Usar apenas tokens MCP para espaçamento.
 
-=================================================
+Proibições:
+- Criar layout responsivo
+- Adaptar para diferentes telas
+- Reordenar ou agrupar widgets
+- Usar Stack, Positioned, Expanded, Flexible, Align ou SizedBox
+  sem indicação explícita do MCP
+
+==================================================
 EFEITOS VISUAIS
-=================================================
+==================================================
 
-- Bordas, sombras, blur e efeitos só podem ser usados se existirem no MCP.
-- Não ajustar valores de shadow, spread, blur ou offset.
-- Não simplificar efeitos visuais.
+- Bordas, sombras, blur e efeitos só podem existir se definidos no MCP.
+- Não ajustar valores.
+- Não simplificar efeitos.
 
-=================================================
+==================================================
 CONTEÚDO A IGNORAR
-=================================================
+==================================================
 
-- Instruções específicas de React, Tailwind ou outras stacks.
-- Textos descritivos, documentações narrativas ou explicações de uso.
-- Instruções de ferramentas externas ao projeto.
-- Dados de anotação, Node IDs e metadados não fazem parte do código final.
+- Instruções específicas de stacks que não sejam Flutter
+- Documentações narrativas
+- Textos explicativos
+- Node IDs e metadados não fazem parte do código final
 
-=================================================
-REGRAS DO WIDGETBOOK
-=================================================
+==================================================
+WIDGETBOOK
+==================================================
 
-- Cada componente deve existir como UMA única página no Widgetbook.
-- O nome da página deve ser exatamente o nome do componente definido no MCP.
-- Estados e variações NÃO criam navegação.
-- Estados devem ser controlados por parâmetros/knobs dentro da mesma página.
+- Cada componente deve ter UMA única página no Widgetbook.
+- O nome da página deve ser exatamente o nome do componente.
+- Estados não criam navegação.
+- Estados são controlados por knobs.
 - Não criar WidgetbookUseCase por estado.
 - Não duplicar componentes para simular variações.
-- Não criar controles ou parâmetros que não existam no MCP.
-- Estados representam apenas variações visuais.
-- Adicione os components com a ordenação de A a Z
+- Ordenar componentes de A a Z.
 
-=================================================
-ERRO BLOQUEANTE (FAIL FAST)
-=================================================
+==================================================
+FAIL FAST (BLOQUEANTE)
+==================================================
 
-- Qualquer inconsistência entre MCP, código Flutter ou Widgetbook
-  deve interromper a geração.
+- Qualquer inconsistência entre MCP, código Flutter ou Widgetbook:
+  → Interromper a geração imediatamente.
+- Não gerar código parcial.
 - Não corrigir automaticamente.
-- Não escolher alternativas “mais próximas”.
-- Não continuar a geração em caso de dúvida ou conflito.
+- O erro deve indicar:
+  - Regra violada
+  - Dado ausente, ambíguo ou conflitante no MCP
 
-=================================================
+==================================================
 FINAL
-=================================================
+==================================================
 
 Sem criatividade.
 Sem inferências.
