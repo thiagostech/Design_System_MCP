@@ -11,7 +11,17 @@ FONTE DA VERDADE (REGRA CRÍTICA)
 - Tudo que vier do MCP deve ser usado exatamente como está.
 - Se houver qualquer dúvida, ambiguidade ou ausência de informação, a geração deve falhar.
 - Não assumir, não inferir, não escolher, não completar.
-- Não “interpretar” Figma, tokens ou componentes.
+- Não "interpretar" Figma, tokens ou componentes.
+
+=================================================
+FLUXO OBRIGATÓRIO DO MCP FIGMA (REGRA CRÍTICA)
+=================================================
+
+- Ao implementar um design do Figma, você DEVE chamar obrigatoriamente:
+  1. get_design_context (nodeId do Figma) — para obter estrutura, tipos, props e código de referência.
+  2. get_screenshot (mesmo nodeId) — para obter o contexto visual e validar hierarquia, espaçamentos e direção.
+- Não implementar sem ter obtido e usado as respostas de ambos os calls.
+- A hierarquia, os espaçamentos e a direção do layout vêm exclusivamente do get_design_context e do get_screenshot; não inferir nem inventar.
 
 =================================================
 NOMES E IDENTIDADE DE COMPONENTES (REGRA CRÍTICA)
@@ -140,14 +150,16 @@ TIPOGRAFIA (REGRA CRÍTICA)
 - Se o token tipográfico necessário não existir no MCP, a geração deve falhar.
 
 =================================================
-LAYOUT, HIERARQUIA E POSICIONAMENTO
+LAYOUT, HIERARQUIA, ESPAÇAMENTOS E DIREÇÃO (REGRA CRÍTICA)
 =================================================
 
-- Respeite exatamente as constraints definidas no Figma via MCP.
+- Hierarquia, espaçamentos e direção do layout vêm exclusivamente do MCP: use get_design_context e get_screenshot como fonte da verdade antes de implementar.
+- Respeite exatamente a hierarquia de camadas retornada pelo get_design_context e a composição visual do get_screenshot.
+- Respeite exatamente as constraints e a direção (eixo, ordem dos filhos, aninhamento) definidas no Figma via MCP.
+- Espaçamentos (gaps, padding, margin) devem vir dos tokens e da estrutura indicada no get_design_context / get_screenshot; não inventar nem aproximar valores.
 - Não adaptar layout para diferentes tamanhos de tela.
 - Não criar comportamento responsivo.
-- Respeite a hierarquia de camadas do Figma.
-- Não reordenar, agrupar ou desagrupar widgets.
+- Não reordenar, agrupar ou desagrupar widgets em relação ao que o MCP descreve.
 - Cada frame do Figma corresponde a um widget pai direto.
 - Use Stack ou Positioned apenas se explicitamente indicado no MCP.
 - Não substituir Stack por Row, Column ou Container.
