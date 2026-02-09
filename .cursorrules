@@ -303,14 +303,22 @@ TIPOGRAFIA (BLOQUEANTE)
 
 - Tipografia deve vir exclusivamente de tokens MCP OU, quando MCP retornar parcial,
   dos TypographyTokens mapeados no DEPARA.
-- Tokens: TypographyTokens.titleLarge, titleMedium, bodyLarge, bodyMedium, labelLarge, etc.
+- Tokens: TypographyTokens.displaySmall, headlineLarge, titleLarge, titleMedium, bodyLarge, bodyMedium, labelLarge, etc.
+
+REGRA CRÍTICA - TOKENS TIPOGRÁFICOS DO MCP:
+- Quando get_design_context retornar informações explícitas de tipografia (ex.: typography-tokens/display-small,
+  typography-tokens/title-large, etc.), essas informações são OBRIGATÓRIAS e devem ser respeitadas EXATAMENTE.
+- NUNCA substituir ou ignorar tokens tipográficos retornados pelo MCP.
+- Se o MCP indicar display-small para um título, usar TypographyTokens.displaySmall (NÃO titleLarge ou outro token).
+- Mapear tokens do Figma para TypographyTokens conforme DEPARA (seção acima).
+- Se o token tipográfico necessário não existir no DS nem no depara → FALHAR.
 
 Proibições:
 - Criar TextStyle manualmente (fontSize, fontWeight, fontFamily, etc.)
 - Definir manualmente fontSize, fontWeight, fontFamily, height ou letterSpacing
 - Usar Theme.of(context).textTheme em vez de TypographyTokens
-
-- Se o token tipográfico necessário não existir no DS nem no depara → FALHAR.
+- Substituir tokens tipográficos retornados pelo MCP por outros tokens "equivalentes"
+- Ignorar informações de tipografia explícitas do get_design_context
 
 ==================================================
 LAYOUT E HIERARQUIA (BLOQUEANTE)
