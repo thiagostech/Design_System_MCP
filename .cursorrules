@@ -68,6 +68,12 @@ Regras:
 - Sempre importar o componente do DS.
 - Em caso de conflito de nome, usar `hide` no import do Flutter e importar explicitamente o do DS.
 
+Geração de componentes ou páginas:
+- Usar APENAS componentes que já existem no Design System (mesmo projeto).
+- Respeitar a API de cada componente: usar exatamente as propriedades (parâmetros) definidas no componente.
+- Não inventar, adicionar ou omitir propriedades; não trocar nomes ou tipos de props.
+- Se o Figma mapear para um componente do DS, usar esse componente com as props que ele declara — nada de reimplementar ou “adaptar” a API.
+
 ==================================================
 PROPS E API PÚBLICA
 ==================================================
