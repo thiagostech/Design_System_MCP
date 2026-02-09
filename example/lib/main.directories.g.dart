@@ -18,6 +18,8 @@ import 'package:design_system_mcp_test_example/widgetbook/divider.stories.dart'
     as _design_system_mcp_test_example_widgetbook_divider_stories;
 import 'package:design_system_mcp_test_example/widgetbook/filled_button.stories.dart'
     as _design_system_mcp_test_example_widgetbook_filled_button_stories;
+import 'package:design_system_mcp_test_example/widgetbook/gap_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_gap_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/icon_button_filled.stories.dart'
     as _design_system_mcp_test_example_widgetbook_icon_button_filled_stories;
 import 'package:design_system_mcp_test_example/widgetbook/icon_button_outlined.stories.dart'
@@ -32,8 +34,6 @@ import 'package:design_system_mcp_test_example/widgetbook/radius_tokens.stories.
     as _design_system_mcp_test_example_widgetbook_radius_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/size_tokens.stories.dart'
     as _design_system_mcp_test_example_widgetbook_size_tokens_stories;
-import 'package:design_system_mcp_test_example/widgetbook/spacing_tokens.stories.dart'
-    as _design_system_mcp_test_example_widgetbook_spacing_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/title_list.stories.dart'
     as _design_system_mcp_test_example_widgetbook_title_list_stories;
 import 'package:design_system_mcp_test_example/widgetbook/top_bar.stories.dart'
@@ -173,6 +173,17 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
+        name: 'GapTokens',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Gap',
+            builder:
+                _design_system_mcp_test_example_widgetbook_gap_tokens_stories
+                    .gapTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
         name: 'RadiusTokens',
         useCases: [
           _widgetbook.WidgetbookUseCase(
@@ -191,17 +202,6 @@ final directories = <_widgetbook.WidgetbookNode>[
             builder:
                 _design_system_mcp_test_example_widgetbook_size_tokens_stories
                     .sizeTokensUseCase,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'SpacingTokens',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Spacing',
-            builder:
-                _design_system_mcp_test_example_widgetbook_spacing_tokens_stories
-                    .spacingTokensUseCase,
           ),
         ],
       ),
