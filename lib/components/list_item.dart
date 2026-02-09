@@ -32,8 +32,8 @@ class ListItem extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final content = Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.gapLarge,
-        vertical: SpacingTokens.gapMedium,
+        horizontal: GapTokens.gapLarge,
+        vertical: GapTokens.gapMedium,
       ),
       child: Row(
         crossAxisAlignment: rowAlignment,
@@ -44,7 +44,7 @@ class ListItem extends StatelessWidget {
               color: colorScheme.onSurface,
               size: SizeTokens.iconSizeSmall,
             ),
-            const SizedBox(width: SpacingTokens.gapMedium),
+            const SizedBox(width: GapTokens.gapMedium),
           ],
           Expanded(
             child: Column(
@@ -57,7 +57,7 @@ class ListItem extends StatelessWidget {
                     color: colorScheme.onSurface,
                   ),
                 ),
-                const SizedBox(height: SpacingTokens.gapExtraSmall),
+                const SizedBox(height: GapTokens.gapExtraSmall),
                 Text(
                   supportingText,
                   style: TypographyTokens.bodyMedium.copyWith(
@@ -70,7 +70,7 @@ class ListItem extends StatelessWidget {
             ),
           ),
           if (trailingIcon != null) ...[
-            const SizedBox(width: SpacingTokens.gapSmall),
+            const SizedBox(width: GapTokens.gapSmall),
             Icon(
               trailingIcon,
               color: colorScheme.onSurface,

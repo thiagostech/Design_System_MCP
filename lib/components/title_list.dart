@@ -18,8 +18,8 @@ class TitleList extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.gapLarge,
-        vertical: SpacingTokens.gapMedium,
+        horizontal: GapTokens.gapLarge,
+        vertical: GapTokens.gapMedium,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -31,7 +31,7 @@ class TitleList extends StatelessWidget {
               color: colorScheme.onSurface,
             ),
           ),
-          const SizedBox(height: SpacingTokens.gapExtraSmall),
+          const SizedBox(height: GapTokens.gapExtraSmall),
           Text(
             supportingText,
             style: TypographyTokens.bodyMedium.copyWith(

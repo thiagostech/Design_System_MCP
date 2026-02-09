@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../tokens/tokens.dart';
 
 /// Outlined icon button (Figma 29-1189). Circular, outline border, onSurfaceVariant icon. Estados: default, hover, disabled.
-/// Tokens: outline, onSurfaceVariant, onSurfaceOpacity10, onSurfaceOpacity40; RadiusTokens.cornerFull; SpacingTokens.gapMedium.
+/// Tokens: outline, onSurfaceVariant, onSurfaceOpacity10, onSurfaceOpacity40; RadiusTokens.cornerFull; GapTokens.gapMedium.
 class IconButtonOutlined extends StatelessWidget {
   const IconButtonOutlined({
     super.key,

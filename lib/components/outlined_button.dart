@@ -3,7 +3,7 @@ import '../tokens/tokens.dart';
 
 /// Outlined button (Figma 2-493). Estados: default, hover, disabled.
 /// Tokens: ColorTokens.outline, onSurface, onSurfaceOpacity10, onSurfaceOpacity40, onSurfaceVariant;
-/// SpacingTokens.gapLarge, gapMedium; RadiusTokens.cornerFull; TypographyTokens.labelLarge.
+/// GapTokens.gapLarge, gapMedium; RadiusTokens.cornerFull; TypographyTokens.labelLarge.
 class ButtonOutlined extends StatelessWidget {
   const ButtonOutlined({
     super.key,
@@ -57,8 +57,8 @@ class ButtonOutlined extends StatelessWidget {
           }),
           padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
             EdgeInsets.symmetric(
-              horizontal: SpacingTokens.gapLarge,
-              vertical: SpacingTokens.gapLarge,
+              horizontal: GapTokens.gapLarge,
+              vertical: GapTokens.gapLarge,
             ),
           ),
           minimumSize: const MaterialStatePropertyAll<Size>(

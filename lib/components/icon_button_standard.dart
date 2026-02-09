@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../tokens/tokens.dart';
 
 /// Icon button standard (Figma 29-1187). Circular, transparent container, onSurfaceVariant icon. Estados: default, hover, disabled.
-/// Tokens: onSurfaceVariant, onSurfaceOpacity10, onSurfaceOpacity40; RadiusTokens.cornerFull; SpacingTokens.gapMedium; SizeTokens.
+/// Tokens: onSurfaceVariant, onSurfaceOpacity10, onSurfaceOpacity40; RadiusTokens.cornerFull; GapTokens.gapMedium; SizeTokens.
 class IconButtonStandard extends StatelessWidget {
   const IconButtonStandard({
     super.key,

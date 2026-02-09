@@ -14,7 +14,7 @@ enum DividerType {
 }
 
 /// Divider (Figma 34-186). Linha horizontal ou vertical com ColorTokens.outlineVariant.
-/// Tokens: outlineVariant; SpacingTokens.gapLarge (insets para type inset/middleInset).
+/// Tokens: outlineVariant; GapTokens.gapLarge (insets para type inset/middleInset).
 class Divider extends StatelessWidget {
   const Divider({
     super.key,
@@ -28,7 +28,7 @@ class Divider extends StatelessWidget {
   /// Tipo: full-width, inset (recuo no início) ou middle-inset (recuo nos dois lados).
   final DividerType type;
 
-  static const double _inset = SpacingTokens.gapLarge;
+  static const double _inset = GapTokens.gapLarge;
   static const double _lineSize = 1;
 
   @override

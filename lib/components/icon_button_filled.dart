@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../tokens/tokens.dart';
 
 /// Filled icon button (Figma 29-1202). Circular, primary container, onPrimary icon. Estados: default, hover, disabled.
-/// Tokens: primary, onPrimary, onPrimaryOpacity10, onSurfaceOpacity40, onSurfaceVariant; RadiusTokens.cornerFull; SpacingTokens.gapMedium.
+/// Tokens: primary, onPrimary, onPrimaryOpacity10, onSurfaceOpacity40, onSurfaceVariant; RadiusTokens.cornerFull; GapTokens.gapMedium.
 class IconButtonFilled extends StatelessWidget {
   const IconButtonFilled({
     super.key,

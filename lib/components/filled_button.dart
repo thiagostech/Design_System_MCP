@@ -3,7 +3,7 @@ import '../tokens/tokens.dart';
 
 /// Filled button (Figma 2-222). Estados: default, hover, disabled.
 /// Tokens: ColorTokens.primary, onPrimary, onSurfaceOpacity40, onSurfaceVariant, onPrimaryOpacity10;
-/// SpacingTokens.gapLarge, gapMedium; RadiusTokens.cornerFull; TypographyTokens.labelLarge.
+/// GapTokens.gapLarge, gapMedium; RadiusTokens.cornerFull; TypographyTokens.labelLarge.
 class ButtonFilled extends StatelessWidget {
   const ButtonFilled({
     super.key,
@@ -45,8 +45,8 @@ class ButtonFilled extends StatelessWidget {
           }),
           padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
             EdgeInsets.symmetric(
-              horizontal: SpacingTokens.gapLarge,
-              vertical: SpacingTokens.gapLarge,
+              horizontal: GapTokens.gapLarge,
+              vertical: GapTokens.gapLarge,
             ),
           ),
           minimumSize: const MaterialStatePropertyAll<Size>(

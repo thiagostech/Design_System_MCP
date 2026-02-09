@@ -3,7 +3,7 @@ import '../tokens/tokens.dart';
 import 'icon_button_standard.dart';
 
 /// Top bar (Figma 29-2908). Leading icon, title, optional trailing icon. Variants: compact (single line), medium (titleLarge), large (displaySmall).
-/// Tokens: surface, onSurface; SpacingTokens.gapLarge, gapSmall, gapExtraSmall; TypographyTokens.titleLarge, displaySmall, bodyMedium; SizeTokens.
+/// Tokens: surface, onSurface; GapTokens.gapLarge, gapSmall, gapExtraSmall; TypographyTokens.titleLarge, displaySmall, bodyMedium; SizeTokens.
 enum TopBarVariant { compact, medium, large }
 
 class TopBar extends StatelessWidget {
@@ -39,8 +39,8 @@ class TopBar extends StatelessWidget {
         bottom: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.gapSmall,
-            vertical: SpacingTokens.gapSmall,
+            horizontal: GapTokens.gapSmall,
+            vertical: GapTokens.gapSmall,
           ),
           child: variant == TopBarVariant.compact
               ? _buildCompact(colorScheme)
@@ -57,9 +57,9 @@ class TopBar extends StatelessWidget {
       children: [
         if (showLeading) ...[
           IconButtonStandard(icon: leadingIcon, onPressed: onLeadingTap),
-          const SizedBox(width: SpacingTokens.gapLarge),
+          const SizedBox(width: GapTokens.gapLarge),
         ] else ...[
-          const SizedBox(width: SpacingTokens.gapMedium),
+          const SizedBox(width: GapTokens.gapMedium),
         ],
         Expanded(
           child: Column(
@@ -76,7 +76,7 @@ class TopBar extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               if (supportingText != null && supportingText!.isNotEmpty) ...[
-                const SizedBox(height: SpacingTokens.gapExtraSmall),
+                const SizedBox(height: GapTokens.gapExtraSmall),
                 Text(
                   supportingText!,
                   style: TypographyTokens.bodyMedium.copyWith(
@@ -90,10 +90,10 @@ class TopBar extends StatelessWidget {
           ),
         ),
         if (showTrailing && trailingIcon != null) ...[
-          const SizedBox(width: SpacingTokens.gapLarge),
+          const SizedBox(width: GapTokens.gapLarge),
           IconButtonStandard(icon: trailingIcon!, onPressed: onTrailingTap),
         ] else ...[
-          const SizedBox(width: SpacingTokens.gapMedium),
+          const SizedBox(width: GapTokens.gapMedium),
         ],
       ],
     );
@@ -118,9 +118,9 @@ class TopBar extends StatelessWidget {
               IconButtonStandard(icon: trailingIcon!, onPressed: onTrailingTap),
           ],
         ),
-        const SizedBox(height: SpacingTokens.gapExtraSmall),
+        const SizedBox(height: GapTokens.gapExtraSmall),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.gapLarge),
+          padding: const EdgeInsets.symmetric(horizontal: GapTokens.gapLarge),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +132,7 @@ class TopBar extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               if (supportingText != null && supportingText!.isNotEmpty) ...[
-                const SizedBox(height: SpacingTokens.gapExtraSmall),
+                const SizedBox(height: GapTokens.gapExtraSmall),
                 Text(
                   supportingText!,
                   style: TypographyTokens.bodyMedium.copyWith(

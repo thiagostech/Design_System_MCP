@@ -125,8 +125,8 @@ MAPEAMENTO DE TOKENS (BLOQUEANTE)
 - O nome do token define exatamente qual token usar.
 - Não substituir tokens por equivalentes semânticos.
 - Exemplo:
-  MCP: SpacingTokens/gapMedium
-  Flutter: SpacingTokens.gapMedium
+  MCP: GapTokens/gapMedium
+  Flutter: GapTokens.gapMedium
 
 ==================================================
 TIPOGRAFIA (BLOQUEANTE)
