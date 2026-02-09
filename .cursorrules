@@ -15,6 +15,144 @@ REGRA GLOBAL (BLOQUEANTE)
 - Não interpretar Figma, tokens ou componentes.
 
 ==================================================
+DATA-IA-DEVELOPMENT-ANNOTATIONS (BLOQUEANTE)
+==================================================
+
+CRÍTICO: O Cursor DEVE respeitar TODO e QUALQUER atributo data-ia-development-annotations
+como regra obrigatória. Esses atributos vêm do get_design_context (ex.: em className,
+HTML, ou código exportado do Figma).
+
+Exemplo:
+  data-ia-development-annotations="Respeite a font-size"
+  → O font-size indicado no mesmo elemento DEVE ser aplicado exatamente.
+
+Regras:
+- Todo data-ia-development-annotations é vinculante. Não ignorar.
+- Se indicar "Respeite a font-size" → usar o token tipográfico que corresponde ao
+  size/line-height/weight do elemento.
+- Mapear os valores CSS/var do Figma aos TypographyTokens do projeto via DEPARA abaixo.
+
+==================================================
+O QUE O FIGMA MCP RETORNA (ESTADO ATUAL)
+==================================================
+
+Calls disponíveis: get_design_context, get_screenshot, get_metadata.
+
+Respostas observadas:
+
+1. get_design_context:
+   - Caso completo: estrutura, hierarquia, tokens, props, código — incluindo o nome
+     do componente/página (ex: export default function SneakerSubscriptionPage()).
+     Esse nome é CRÍTICO e deve ser usado exatamente no Flutter.
+   - Pode retornar tamanhos de font via typography-tokens (ex: var(--typography-tokens/
+     display-small/size,36px)) e atributos data-ia-development-annotations (ex:
+     "Respeite a font-size"). Todos devem ser respeitados e mapeados ao DS.
+   - Caso parcial: apenas aviso "IMPORTANT: After you call this tool, you MUST call get_screenshot".
+   - Ausente: nome de tokens, TypeScript props, hierarquia de layout.
+
+2. get_screenshot:
+   - Retorna: imagem + descrição textual da UI (layout, seções, componentes visuais,
+     cores hex aproximadas, tipografia aproximada, ícones, botões).
+   - Inclui: "Primary Button", "Secondary Button", "List item", "Close button",
+     "Title", "Subtitle", "Supporting text", cores (#673AB7, #FBF7FB, etc.).
+
+3. get_metadata:
+   - Caso completo: XML com estrutura de nodes, atributo name do symbol.
+   - Caso parcial: apenas aviso "IMPORTANT: If you call this tool, you MUST call get_design_context".
+   - Ausente: nome do componente para arquivo/classe Flutter.
+
+==================================================
+DEPARA FIGMA MCP ↔ DESIGN SYSTEM (quando MCP retorna parcial)
+==================================================
+
+Quando get_design_context ou get_metadata não retornam dados estruturados,
+usar EXCLUSIVAMENTE este depara para mapear descrições do get_screenshot
+aos componentes e tokens do projeto. Não inventar mapeamentos.
+
+COMPONENTES VISUAIS (screenshot description → DS):
+  - "Close button" / "X icon" / "dismiss"     → IconButtonStandard (icon: Icons.close)
+  - "List item" com icon + title + supporting → ListItem (leadingIcon, title, supportingText, showDivider)
+  - "Primary Button" / "solid purple button"  → ButtonFilled (label)
+  - "Secondary Button" / "outline button"     → ButtonOutlined (label)
+  - "Divider" / "separator" entre itens       → ListItem(showDivider: true) ou Divider
+  - "Person outline icon" em list item        → Icons.person_outline
+
+TIPOGRAFIA (screenshot description → TypographyTokens):
+  - "large bold title" / "main title" / "H1"  → TypographyTokens.titleLarge
+  - "subtitle" / "smaller regular"            → TypographyTokens.bodyMedium
+  - "list item primary text"                  → TypographyTokens.bodyLarge (via ListItem)
+  - "supporting text" / "lorem ipsum"         → TypographyTokens.bodyMedium (via ListItem)
+  - Botões                                    → TypographyTokens.labelLarge (via ButtonFilled/ButtonOutlined)
+
+TIPOGRAFIA (get_design_context retorna tamanhos — Figma tokens → TypographyTokens):
+  Quando get_design_context retornar typography-tokens no className/HTML (ex.:
+  typography-tokens/display-small/size, line-height, weight), fazer o depara exato:
+
+  Figma typography-tokens/display-small (36px, 44px, SemiBold)
+    → TypographyTokens.displaySmall
+
+  Figma typography-tokens/headline-large (32px, 40px, SemiBold)
+    → TypographyTokens.headlineLarge
+
+  Figma typography-tokens/title-large (22px, 28px, Medium)
+    → TypographyTokens.titleLarge
+
+  Figma typography-tokens/title-medium (16px, 24px, Medium)
+    → TypographyTokens.titleMedium
+
+  Figma typography-tokens/title-small (14px, 20px, Medium)
+    → TypographyTokens.titleSmall
+
+  Figma typography-tokens/body-large (16px, 24px, Regular)
+    → TypographyTokens.bodyLarge
+
+  Figma typography-tokens/body-medium (14px, 20px, Regular)
+    → TypographyTokens.bodyMedium
+
+  Figma typography-tokens/body-small (12px, 16px, Regular)
+    → TypographyTokens.bodySmall
+
+  Figma typography-tokens/label-large (14px, 20px, Medium)
+    → TypographyTokens.labelLarge
+
+  Exemplo: data-ia-development-annotations="Respeite a font-size" com
+  text-[length:var(--typography-tokens/display-small/size,36px)] e
+  leading-[var(--typography-tokens/display-small/line-height,44px)]
+  → Usar TypographyTokens.displaySmall (36/44, SemiBold).
+
+CORES (screenshot hex → Theme colorScheme / ColorTokens):
+  - #673AB7, #6A4CAF, purple escuro          → colorScheme.primary
+  - #FBF7FB, #F9F0FB, #F8F4FA, lavender      → colorScheme.surfaceContainerLow
+  - #1C1C1E, #212121, dark grey/black        → colorScheme.onSurface
+  - #4A4A4A, lighter grey                    → colorScheme.onSurfaceVariant
+  - #E0E0E0, light grey line                 → colorScheme.outlineVariant
+  - white text on purple                     → colorScheme.onPrimary
+
+ESPAÇAMENTO (screenshot "padding"/"spacing" → GapTokens):
+  - "substantial" / "large" entre seções      → GapTokens.gapExtraLarge
+  - "moderate" / "noticeable" entre elementos → GapTokens.gapLarge ou gapMedium
+  - "small" / "consistent" entre ícone e texto→ GapTokens.gapMedium
+  - entre título e subtítulo                 → GapTokens.gapSmall
+  - entre botões                             → GapTokens.gapMedium
+
+OUTROS TOKENS:
+  - "pill-shaped" / "heavily rounded" buttons → RadiusTokens.cornerFull
+  - Padding horizontal de conteúdo           → GapTokens.gapLarge (horizontal)
+
+HIERARQUIA DE LAYOUT (quando não vem do get_design_context):
+  - Top: imagem/frame + close overlay
+  - Middle: título, subtítulo, lista de itens (cada um com divider exceto último)
+  - Bottom: primary button, secondary button
+  - Ordem: top-down conforme descrição do screenshot.
+
+REFERÊNCIA — COMPONENTES E TOKENS DO PROJETO:
+  Componentes: Avatar, ButtonFilled, ButtonOutlined, Divider, IconButtonStandard,
+    IconButtonFilled, IconButtonOutlined, ListItem, TitleList, TopBar.
+  Tokens: GapTokens, PaddingTokens, RadiusTokens, SizeTokens, TypographyTokens,
+    ColorTokens (via Theme.colorScheme: primary, onPrimary, surface, surfaceContainerLow,
+    surfaceVariant, onSurface, onSurfaceVariant, outline, outlineVariant).
+
+==================================================
 FLUXO OBRIGATÓRIO MCP (BLOQUEANTE)
 ==================================================
 
@@ -31,25 +169,41 @@ Ao implementar qualquer design do Figma, é OBRIGATÓRIO:
 NOMES E IDENTIDADE DE COMPONENTES (BLOQUEANTE)
 ==================================================
 
-- O nome do componente Flutter deve ser derivado EXCLUSIVAMENTE do get_metadata do MCP.
-- O atributo `name` do symbol é a única fonte válida.
+CRÍTICO: O nome da página ou componente Flutter DEVE ser idêntico ao retornado
+pelo MCP. Essa identidade é MUITO IMPORTANTE e deve ser rigorosamente respeitada.
 
-Exemplo MCP:
-  symbol id="43:151" name="Page Header Profile"
+Ordem de prioridade para o nome:
 
-Regras de conversão:
+1. get_design_context (PRIORIDADE MÁXIMA):
+   Quando o get_design_context retornar o nome do componente/página (ex.: em código
+   TypeScript/React), esse nome é OBRIGATÓRIO para o Flutter.
+   Exemplo retornado: export default function SneakerSubscriptionPage()
+   → Nome Flutter OBRIGATÓRIO: SneakerSubscriptionPage
+   → Arquivo: sneaker_subscription_page.dart
+   → Classe: SneakerSubscriptionPage
+   → Widgetbook: SneakerSubscriptionPage
+   NUNCA renomear, adaptar ou traduzir. Usar EXATAMENTE como retornado.
+
+2. get_metadata:
+   Atributo `name` do symbol quando get_design_context não fornecer o nome.
+   Exemplo: symbol id="43:151" name="Page Header Profile"
+   → PageHeaderProfile (remover espaços, PascalCase)
+
+3. Fallback (apenas quando 1 e 2 ausentes):
+   Derivar do contexto (título principal da tela, node-id) em PascalCase.
+
+Regras de conversão (para get_metadata ou fallback):
 - Remover espaços
 - PascalCase
-- Resultado obrigatório: PageHeaderProfile
+- Nomes, props, tokens e estados são case-sensitive.
 
 Esse nome determina obrigatoriamente:
-- Nome do arquivo: page_header_profile.dart
-- Nome da classe Flutter: PageHeaderProfile
-- Nome da página no Widgetbook: PageHeaderProfile
+- Nome do arquivo: snake_case do nome (ex: sneaker_subscription_page.dart)
+- Nome da classe Flutter: idêntico ao nome
+- Nome da página no Widgetbook: idêntico ao nome
 
 Regras adicionais:
 - Prefixos só podem existir se definidos explicitamente no MCP.
-- Nomes, props, tokens e estados são case-sensitive.
 - Qualquer divergência é erro bloqueante.
 - Nenhum renomeio alternativo é permitido.
 
@@ -113,16 +267,18 @@ TELAS (MAPEAMENTO FIGMA ↔ FLUTTER)
 TOKENS (BLOQUEANTE)
 ==================================================
 
-- Usar EXCLUSIVAMENTE os tokens fornecidos pelo MCP.
+- Usar EXCLUSIVAMENTE os tokens fornecidos pelo MCP OU, quando MCP retornar parcial,
+  os tokens mapeados no DEPARA (seção acima).
 - Tokens já vêm no formato Flutter e devem ser usados literalmente.
+- Se MCP não fornecer tokens E o depara não mapear → FALHAR.
 
 Proibições:
 - Criar novos tokens
-- Substituir tokens
-- Modificar tokens
-- Usar valores fixos
-- Usar fallback numérico
-- Usar withOpacity, lerp ou conversões numéricas
+- Substituir tokens por valores fora do DS
+- Modificar tokens existentes
+- Usar valores fixos (ex: 16.0) em vez de tokens
+- Usar fallback numérico não mapeado
+- Usar withOpacity, lerp ou conversões numéricas (exceto dentro de componentes do DS)
 
 ==================================================
 MAPEAMENTO DE TOKENS (BLOQUEANTE)
@@ -138,16 +294,16 @@ MAPEAMENTO DE TOKENS (BLOQUEANTE)
 TIPOGRAFIA (BLOQUEANTE)
 ==================================================
 
-- Tipografia deve vir exclusivamente de tokens MCP.
-- Tokens tipográficos são usados como objetos completos.
+- Tipografia deve vir exclusivamente de tokens MCP OU, quando MCP retornar parcial,
+  dos TypographyTokens mapeados no DEPARA.
+- Tokens: TypographyTokens.titleLarge, titleMedium, bodyLarge, bodyMedium, labelLarge, etc.
 
 Proibições:
-- Criar TextStyle manualmente
-- Usar TextStyle.copyWith
+- Criar TextStyle manualmente (fontSize, fontWeight, fontFamily, etc.)
 - Definir manualmente fontSize, fontWeight, fontFamily, height ou letterSpacing
-- Usar Theme.of(context).textTheme
+- Usar Theme.of(context).textTheme em vez de TypographyTokens
 
-- Se o token tipográfico necessário não existir → FALHAR.
+- Se o token tipográfico necessário não existir no DS nem no depara → FALHAR.
 
 ==================================================
 LAYOUT E HIERARQUIA (BLOQUEANTE)
@@ -170,8 +326,11 @@ Proibições:
 - Criar layout responsivo
 - Adaptar para diferentes telas
 - Reordenar ou agrupar widgets
-- Usar Stack, Positioned, Expanded, Flexible, Align ou SizedBox
-  sem indicação explícita do MCP
+
+Quando MCP retornar parcial (apenas screenshot):
+- Stack/Positioned são permitidos quando a descrição indicar overlay (ex: "close button overlaid on image").
+- Expanded, Flexible, SizedBox são permitidos conforme hierarquia do DEPARA.
+- Sem indicação no MCP nem no depara → evitar; se indispensável, documentar a exceção.
 
 ==================================================
 EFEITOS VISUAIS
@@ -214,6 +373,12 @@ FAIL FAST (BLOQUEANTE)
   - Regra violada
   - Dado ausente, ambíguo ou conflitante no MCP
 
+Exceção para MCP parcial:
+- Se get_design_context e/ou get_metadata não retornarem dados estruturados,
+  mas get_screenshot retornar descrição da UI → PODE prosseguir usando o DEPARA.
+- Nome do componente: derivar do contexto (ex: título principal, node-id) em PascalCase
+  quando get_metadata não fornecer.
+
 ==================================================
 FINAL
 ==================================================
@@ -222,4 +387,4 @@ Sem criatividade.
 Sem inferências.
 Sem otimizações.
 
-O MCP é a fonte da verdade.
+O MCP é a fonte da verdade. Quando MCP retornar parcial, o DEPARA é a ponte autorizada.
