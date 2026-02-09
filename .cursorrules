@@ -172,6 +172,13 @@ NOMES E IDENTIDADE DE COMPONENTES (BLOQUEANTE)
 CRÍTICO: O nome da página ou componente Flutter DEVE ser idêntico ao retornado
 pelo MCP. Essa identidade é MUITO IMPORTANTE e deve ser rigorosamente respeitada.
 
+REGRA OBRIGATÓRIA ANTES DE CRIAR QUALQUER COMPONENTE/PÁGINA:
+- SEMPRE verificar o nome do componente/página no retorno do get_design_context do MCP Figma.
+- O nome pode aparecer em código TypeScript/React exportado (ex.: export default function ComponentName()).
+- NUNCA assumir ou inferir o nome baseado apenas na descrição visual ou no título da tela.
+- Se o get_design_context não retornar o nome explicitamente, usar get_metadata para verificar o atributo `name` do symbol.
+- Só usar fallback (derivar do contexto) quando AMBOS get_design_context E get_metadata não retornarem o nome.
+
 Ordem de prioridade para o nome:
 
 1. get_design_context (PRIORIDADE MÁXIMA):
@@ -363,7 +370,7 @@ TAREFA 1: Criar/Atualizar o componente ou página
 TAREFA 2: Criar/Atualizar no Widgetbook (OBRIGATÓRIO)
 - Criar ou atualizar o arquivo de story em example/lib/widgetbook/
   → Nome do arquivo: <nome_componente>.stories.dart (snake_case)
-  → Exemplo: sneaker_subscription_modal.stories.dart
+  → Exemplo: sneaker_subscription_page.stories.dart
 - Atualizar example/lib/widgetbook_directories.dart:
   → Adicionar import do arquivo de story
   → Adicionar WidgetbookComponent com WidgetbookUseCase na pasta apropriada
