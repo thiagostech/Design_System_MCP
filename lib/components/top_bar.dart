@@ -36,6 +36,7 @@ class TopBar extends StatelessWidget {
     return ColoredBox(
       color: colorScheme.surface,
       child: SafeArea(
+        top: false,
         bottom: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -57,7 +58,7 @@ class TopBar extends StatelessWidget {
       children: [
         if (showLeading) ...[
           IconButtonStandard(icon: leadingIcon, onPressed: onLeadingTap),
-          const SizedBox(width: GapTokens.gapLarge),
+          const SizedBox(width: GapTokens.gapSmall),
         ] else ...[
           const SizedBox(width: GapTokens.gapMedium),
         ],
@@ -120,7 +121,7 @@ class TopBar extends StatelessWidget {
         ),
         const SizedBox(height: GapTokens.gapExtraSmall),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: GapTokens.gapLarge),
+          padding: const EdgeInsets.symmetric(horizontal: GapTokens.gapSmall),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
