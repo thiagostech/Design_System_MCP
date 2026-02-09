@@ -6,6 +6,7 @@ import 'package:design_system_mcp_test/design_system_mcp_test.dart';
 // Gerado por: dart run build_runner build --delete-conflicting-outputs
 import 'main.directories.g.dart';
 import 'widgetbook/widgetbook_home.dart';
+import 'widgetbook_directories.dart';
 
 void main() {
   runApp(const DesignSystemWidgetbookApp());
@@ -18,7 +19,7 @@ class DesignSystemWidgetbookApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Widgetbook.material(
-      directories: directories,
+      directories: widgetbookDirectories,
       home: const WidgetbookHome(),
       integrations: const [],
       addons: [

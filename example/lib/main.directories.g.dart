@@ -30,8 +30,12 @@ import 'package:design_system_mcp_test_example/widgetbook/list_item.stories.dart
     as _design_system_mcp_test_example_widgetbook_list_item_stories;
 import 'package:design_system_mcp_test_example/widgetbook/outlined_button.stories.dart'
     as _design_system_mcp_test_example_widgetbook_outlined_button_stories;
+import 'package:design_system_mcp_test_example/widgetbook/padding_tokens.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_padding_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/radius_tokens.stories.dart'
     as _design_system_mcp_test_example_widgetbook_radius_tokens_stories;
+import 'package:design_system_mcp_test_example/widgetbook/settings_page.stories.dart'
+    as _design_system_mcp_test_example_widgetbook_settings_page_stories;
 import 'package:design_system_mcp_test_example/widgetbook/size_tokens.stories.dart'
     as _design_system_mcp_test_example_widgetbook_size_tokens_stories;
 import 'package:design_system_mcp_test_example/widgetbook/title_list.stories.dart'
@@ -184,6 +188,17 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
+        name: 'PaddingTokens',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Padding',
+            builder:
+                _design_system_mcp_test_example_widgetbook_padding_tokens_stories
+                    .paddingTokensUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
         name: 'RadiusTokens',
         useCases: [
           _widgetbook.WidgetbookUseCase(
@@ -213,6 +228,22 @@ final directories = <_widgetbook.WidgetbookNode>[
             builder:
                 _design_system_mcp_test_example_widgetbook_typography_tokens_stories
                     .typographyTokensUseCase,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'widgetbook',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'SettingsPage',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Settings',
+            builder:
+                _design_system_mcp_test_example_widgetbook_settings_page_stories
+                    .settingsPageUseCase,
           ),
         ],
       ),
