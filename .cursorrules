@@ -350,9 +350,27 @@ CONTEÚDO A IGNORAR
 - Node IDs e metadados não fazem parte do código final
 
 ==================================================
-WIDGETBOOK
+WIDGETBOOK (BLOQUEANTE)
 ==================================================
 
+REGRA OBRIGATÓRIA:
+Ao criar ou atualizar QUALQUER componente ou página, é OBRIGATÓRIO realizar as seguintes tarefas:
+
+TAREFA 1: Criar/Atualizar o componente ou página
+- Criar o arquivo do componente/página em lib/components/ ou lib/templates/
+- Exportar no barrel file correspondente (components.dart ou templates.dart)
+
+TAREFA 2: Criar/Atualizar no Widgetbook (OBRIGATÓRIO)
+- Criar ou atualizar o arquivo de story em example/lib/widgetbook/
+  → Nome do arquivo: <nome_componente>.stories.dart (snake_case)
+  → Exemplo: sneaker_subscription_modal.stories.dart
+- Atualizar example/lib/widgetbook_directories.dart:
+  → Adicionar import do arquivo de story
+  → Adicionar WidgetbookComponent com WidgetbookUseCase na pasta apropriada
+  → Para componentes: adicionar em "Components"
+  → Para páginas/templates: adicionar em "Example Pages"
+
+Regras específicas:
 - Cada componente deve ter UMA única página no Widgetbook.
 - O nome da página deve ser exatamente o nome do componente.
 - Estados não criam navegação.
@@ -360,6 +378,11 @@ WIDGETBOOK
 - Não criar WidgetbookUseCase por estado.
 - Não duplicar componentes para simular variações.
 - Ordenar componentes de A a Z.
+
+PROIBIÇÕES:
+- Criar componente/página sem criar a story correspondente no Widgetbook.
+- Criar componente/página sem atualizar widgetbook_directories.dart.
+- Esquecer de exportar o componente no barrel file.
 
 ==================================================
 FAIL FAST (BLOQUEANTE)
